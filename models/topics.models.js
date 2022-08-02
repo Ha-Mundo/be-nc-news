@@ -9,7 +9,6 @@ exports.fetchTopics = () => {
     `
     )
     .then(({ rows }) => {
-      console.log(rows);
       return rows;
     });
 };
