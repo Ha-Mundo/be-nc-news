@@ -4,11 +4,9 @@ const seed = require("../db/seeds/seed.js");
 const app = require("../app");
 const request = require("supertest");
 
-// Seeding
 beforeEach(() => seed(testData));
 afterAll(() => db.end());
 
-// GET / api / topics
 describe("GET /api/topics", () => {
   test("Returns an array of all the topics with description and slug properties", () => {
     return request(app)
