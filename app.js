@@ -5,6 +5,7 @@ const app = express();
 app.use(express.json());
 
 app.get("/api/topics", getTopics);
+app.get("/api/articles/:article_id", getArticleById);
 
 app.all("*", (req, res) => {
   res.status(404).send({ msg: "Path not found" });
@@ -12,5 +13,5 @@ app.all("*", (req, res) => {
 
 app.use(psqlErrors);
 app.use(customErrors);
-app.use(handle500s);
+
 module.exports = app;
