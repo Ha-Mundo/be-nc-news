@@ -11,3 +11,24 @@ exports.selectArticleById = article_id => {
       }
     });
 };
+
+exports.updateVotes = (body, article_id) => {
+  const { inc_votes } = body;
+  return db
+    .query(
+      `UPDATE articles
+   SET votes=votes+$1
+  WHERE article_id=$2
+   RETURNING *;`,
+      [inc_votes, article_id]
+    )
+    .then(response => {
+      if (response.rowCount === 0) {
+        return Promise.reject({
+          status: 404,
+          msg: "article_id not found",
+        });
+      }
+      return response.rows[0];
+    });
+};
