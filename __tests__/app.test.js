@@ -66,3 +66,61 @@ describe("GET/api/articles/:article_id", () => {
       });
   });
 });
+
+describe("PATCH /api/articles/:article_id", () => {
+  test("PATCH: should increment vote for the given article id", () => {
+    return request(app)
+      .patch("/api/articles/1")
+      .send({ inc_votes: 5 })
+      .expect(200)
+      .then(res => {
+        expect(typeof res.body.article).toBe("object");
+        expect(res.body.article).toEqual({
+          article_id: 1,
+          title: "Living in the shadow of a great man",
+          body: "I find this existence challenging",
+          votes: 105,
+          topic: "mitch",
+          author: "butter_bridge",
+          created_at: "2020-07-09T20:11:00.000Z",
+        });
+      });
+  });
+  test("PATCH: should decrement vote for the given article id", () => {
+    return request(app)
+      .patch("/api/articles/1")
+      .send({ inc_votes: -5 })
+      .expect(200)
+      .then(res => {
+        expect(typeof res.body.article).toBe("object");
+        expect(res.body.article).toEqual({
+          article_id: 1,
+          title: "Living in the shadow of a great man",
+          body: "I find this existence challenging",
+          votes: 95,
+          topic: "mitch",
+          author: "butter_bridge",
+          created_at: "2020-07-09T20:11:00.000Z",
+        });
+      });
+  });
+
+  test('Status:400 returns "bad request"', () => {
+    return request(app)
+      .patch("/api/articles/abcd")
+      .send({ inc_votes: 5 })
+      .expect(400)
+      .then(response => {
+        expect(response.body.msg).toBe("bad request");
+      });
+  });
+
+  test("status: 404 for valid but non existent article_id", () => {
+    return request(app)
+      .patch("/api/articles/77777")
+      .expect(404)
+      .then(({ body }) => {
+        expect(body.msg).toBe("article_id not found");
+      });
+  });
+});
