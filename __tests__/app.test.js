@@ -146,3 +146,20 @@ describe("PATCH /api/articles/:article_id", () => {
       });
   });
 });
+
+describe("GET /api/users", () => {
+  test("Responds with status: 200 and an array of objects containing the correct keys", () => {
+    return request(app)
+      .get("/api/users")
+      .expect(200)
+      .then(({ body }) => {
+        expect(Array.isArray(body.users)).toBe(true);
+        expect(body.users.length).toBe(4);
+        body.users.forEach(user => {
+          expect(user.username).toEqual(expect.any(String));
+          expect(user.name).toEqual(expect.any(String));
+          expect(user.avatar_url).toEqual(expect.any(String));
+        });
+      });
+  });
+});
