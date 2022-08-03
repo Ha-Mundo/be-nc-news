@@ -123,4 +123,26 @@ describe("PATCH /api/articles/:article_id", () => {
         expect(body.msg).toBe("article_id not found");
       });
   });
+
+  test("status: 400 for invalid inc_votes value", () => {
+    const input = { inc_votes: "cat" };
+    return request(app)
+      .patch("/api/articles/1")
+      .send(input)
+      .expect(400)
+      .then(({ body }) => {
+        expect(body.msg).toBe("bad request");
+      });
+  });
+
+  test("status: 400 for invalid inc_votes key such as inc_vote", () => {
+    const input = { inc_vote: "cat" };
+    return request(app)
+      .patch("/api/articles/1")
+      .send(input)
+      .expect(400)
+      .then(({ body }) => {
+        expect(body.msg).toBe("bad request");
+      });
+  });
 });
