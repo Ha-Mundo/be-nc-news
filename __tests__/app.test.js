@@ -229,3 +229,52 @@ describe("GET /api/articles", () => {
       });
   });
 });
+
+describe("GET /api/articles/:article_id/comments", () => {
+  test("Comment request responds with a comments array", () => {
+    return request(app)
+      .get("/api/articles/9/comments")
+      .expect(200)
+      .then(res => {
+        expect(res.body.comments).toBeInstanceOf(Array);
+        expect(res.body.comments).toHaveLength(2);
+        res.body.comments.forEach(comment => {
+          expect(comment).toMatchObject({
+            comment_id: expect.any(Number),
+            author: expect.any(String),
+            article_id: expect.any(Number),
+            votes: expect.any(Number),
+            created_at: expect.any(String),
+            body: expect.any(String),
+          });
+        });
+      });
+  });
+  test("Return 400 and Bad Request if trying to get comments of invalid article id", () => {
+    return request(app)
+      .get("/api/articles/notanid/comments")
+      .expect(400)
+      .then(res => {
+        expect(res.body.msg).toBe("bad request");
+      });
+  });
+  test("Responds with 404 when given article_id is not present", () => {
+    return request(app)
+      .get("/api/articles/777/comments")
+      .expect(404)
+      .then(res => {
+        console.log(res.body.msg);
+        expect(res.body.msg).toEqual("article_id not found");
+      });
+  });
+  test("Responds with 200 and an empty array when given a valid article id that has no comments", () => {
+    return request(app)
+      .get("/api/articles/4/comments")
+      .expect(200)
+      .then(res => {
+        const { comments } = res.body;
+        expect(Array.isArray(comments)).toBe(true);
+        expect(comments).toHaveLength(0);
+      });
+  });
+});

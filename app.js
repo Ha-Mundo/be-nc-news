@@ -14,12 +14,16 @@ const {
   getAllArticles,
   getArticleById,
   getVotes,
+  getComment,
 } = require("./controllers/articles.controllers.js");
+
 const { getUsers } = require("./controllers/users.controllers.js");
 
 app.get("/api/topics", getTopics);
 app.get("/api/articles", getAllArticles);
 app.get("/api/articles/:article_id", getArticleById);
+app.get("/api/articles/:article_id/comments", getComment);
+
 app.patch("/api/articles/:article_id", getVotes);
 
 app.get("/api/users", getUsers);
