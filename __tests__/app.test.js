@@ -278,3 +278,12 @@ describe("GET /api/articles/:article_id/comments", () => {
       });
   });
 });
+
+describe("Add a comment", () => {
+  test("Post an object with username and body properties, adds comment based on comment id", () => {
+    return request(app)
+      .post("/api/articles/1/comments")
+      .send({ username: "butter_bridge", body: "Za Worldo!" })
+      .expect(201);
+  });
+});
