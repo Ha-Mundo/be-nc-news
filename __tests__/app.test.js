@@ -185,28 +185,4 @@ describe("GET /api/articles/:article_id", () => {
         expect(res.body.article.comment_count).toBe("11");
       });
   });
-  test("200: should respond with correct number of comments for the given article id", () => {
-    return request(app)
-      .get("/api/articles/1")
-      .expect(200)
-      .then(res => {
-        expect(res.body.article.comment_count).toBe("11");
-      });
-  });
-  test("200: should respond with correct number of comments for the given article id", () => {
-    return request(app)
-      .get("/api/articles/3")
-      .expect(200)
-      .then(res => {
-        expect(res.body.article.comment_count).toBe("2");
-      });
-  });
-  test("200: should respond with correct number of comments for the given article id", () => {
-    return request(app)
-      .get("/api/articles/9")
-      .expect(200)
-      .then(res => {
-        expect(res.body.article.comment_count).toBe("2");
-      });
-  });
 });
