@@ -185,7 +185,7 @@ describe("GET /api/articles/:article_id", () => {
         expect(res.body.article.comment_count).toBe("11");
       });
   });
-  test("7. status: 400, responds with invalid ", () => {
+  test("Status: 400, responds with invalid ", () => {
     return request(app)
       .get("/api/articles/APPLE")
       .expect(400)
@@ -193,7 +193,7 @@ describe("GET /api/articles/:article_id", () => {
         expect(body.msg).toBe("bad request");
       });
   });
-  test("7. status: 404, responds with id error that doesn't exist ", () => {
+  test("Status: 404, responds with id error that doesn't exist ", () => {
     return request(app)
       .get("/api/articles/77777777")
       .expect(404)
