@@ -3,6 +3,7 @@ const {
   selectArticleById,
   updateVotes,
   fetchComment,
+  addComment,
 } = require("../models/articles.models");
 
 exports.getAllArticles = (req, res, next) => {
@@ -46,4 +47,12 @@ exports.getComment = (req, res, next) => {
     .catch(err => {
       next(err);
     });
+};
+
+exports.postComment = (req, res, next) => {
+  const { article_id } = req.params;
+
+  addComment(req.body, article_id).then(comment => {
+    res.status(201).send({ comment });
+  });
 };
