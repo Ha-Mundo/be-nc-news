@@ -317,6 +317,19 @@ describe("Add a comment", () => {
         expect(body.msg).toBe("bad request");
       });
   });
+  test("Status: 400 for invalid input key", () => {
+    const input = {
+      username: "butter_bridge",
+      b0d1: "Muda muda muda!",
+    };
+    return request(app)
+      .post("/api/articles/1/comments")
+      .send(input)
+      .expect(400)
+      .then(({ body }) => {
+        expect(body.msg).toBe("bad request");
+      });
+  });
   test("Status: 404 for user not found", () => {
     const input = {
       username: "th3-w0rld",
