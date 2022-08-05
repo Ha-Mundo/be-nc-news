@@ -286,4 +286,48 @@ describe("Add a comment", () => {
       .send({ username: "butter_bridge", body: "Za Worldo!" })
       .expect(201);
   });
+  test("Status: 400 for invalid article_id", () => {
+    return request(app)
+      .post("/api/articles/p34ch/comments")
+      .send({ username: "butter_bridge", body: "Za Worldo!" })
+      .expect(400)
+      .then(({ body }) => {
+        expect(body.msg).toBe("bad request");
+      });
+  });
+  test("Status: 404 for valid but non existent article_id", () => {
+    return request(app)
+      .post("/api/articles/7777/comments")
+      .send({ username: "butter_bridge", body: "Za Worldo!" })
+      .expect(404)
+      .then(({ body }) => {
+        expect(body.msg).toBe("Not found");
+      });
+  });
+  test("Status: 400 for invalid input key", () => {
+    const input = {
+      usernam: "butter_bridge",
+      body: "Muda muda muda!",
+    };
+    return request(app)
+      .post("/api/articles/1/comments")
+      .send(input)
+      .expect(400)
+      .then(({ body }) => {
+        expect(body.msg).toBe("bad request");
+      });
+  });
+  test("Status: 404 for user not found", () => {
+    const input = {
+      username: "th3-w0rld",
+      body: "Muda muda muda!",
+    };
+    return request(app)
+      .post("/api/articles/1/comments")
+      .send(input)
+      .expect(404)
+      .then(({ body }) => {
+        expect(body.msg).toBe("Not found");
+      });
+  });
 });
