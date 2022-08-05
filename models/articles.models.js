@@ -1,15 +1,5 @@
 const db = require("../db/connection");
 
-/* exports.fetchAllArticles = () => {
-  return db
-  .query(
-    "SELECT articles.*, COUNT (comments.article_id) :: INTEGER AS comment_count FROM articles LEFT JOIN comments ON comments.article_id = articles.article_id  GROUP BY articles.article_id ORDER BY created_at DESC"
-    )
-    .then(({ rows }) => {
-      return rows;
-    });
-  }; */
-
 exports.fetchAllArticles = (sort_by = "created_at", order = "DESC", topic) => {
   const allowedSortBY = [
     "title",

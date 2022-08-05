@@ -259,7 +259,6 @@ describe("GET /api/articles", () => {
         expect(body.msg).toBe("Bad Request");
       });
   });
-  ///////////////NO WORKS!/////////////
   test("Status: 200 can refine by topic", () => {
     return request(app)
       .get("/api/articles?topic=cats")
