@@ -52,7 +52,11 @@ exports.getComment = (req, res, next) => {
 exports.postComment = (req, res, next) => {
   const { article_id } = req.params;
 
-  addComment(req.body, article_id).then(comment => {
-    res.status(201).send({ comment });
-  });
+  addComment(req.body, article_id)
+    .then(comment => {
+      res.status(201).send({ comment });
+    })
+    .catch(err => {
+      next(err);
+    });
 };
