@@ -10,11 +10,13 @@ const {
 } = require("./errors/index.js");
 
 const { getTopics } = require("./controllers/topics.controllers.js");
+
 const {
   getAllArticles,
   getArticleById,
   getVotes,
   getComment,
+  postComment,
 } = require("./controllers/articles.controllers.js");
 
 const { getUsers } = require("./controllers/users.controllers.js");
@@ -25,6 +27,8 @@ app.get("/api/articles/:article_id", getArticleById);
 app.get("/api/articles/:article_id/comments", getComment);
 
 app.patch("/api/articles/:article_id", getVotes);
+
+app.post("/api/articles/:article_id/comments", postComment);
 
 app.get("/api/users", getUsers);
 
