@@ -1,15 +1,5 @@
 const db = require("../db/connection");
 
-/* exports.fetchAllArticles = () => {
-  return db
-  .query(
-    "SELECT articles.*, COUNT (comments.article_id) :: INTEGER AS comment_count FROM articles LEFT JOIN comments ON comments.article_id = articles.article_id  GROUP BY articles.article_id ORDER BY created_at DESC"
-    )
-    .then(({ rows }) => {
-      return rows;
-    });
-  }; */
-
 exports.fetchAllArticles = (sort_by = "created_at", order = "DESC", topic) => {
   const allowedSortBY = [
     "title",
@@ -84,48 +74,5 @@ exports.updateVotes = (body, article_id) => {
         });
       }
       return response.rows[0];
-    });
-};
-
-exports.fetchComment = article_id => {
-  return db
-    .query(
-      `
-  SELECT *
-  FROM articles
-  WHERE article_id=$1;
-  `,
-      [article_id]
-    )
-    .then(res => {
-      if (res.rowCount === 0) {
-        return Promise.reject({
-          status: 404,
-          msg: "article_id not found",
-        });
-      } else {
-        return db
-          .query(`SELECT * FROM comments WHERE article_id = $1;`, [article_id])
-          .then(res => {
-            return res.rows;
-          });
-      }
-    });
-};
-
-exports.addComment = (addComment, article_id) => {
-  const { username, body } = addComment;
-
-  return db
-    .query(
-      `
-  INSERT INTO comments (author, body, article_id) 
-  VALUES ($1, $2, $3)
-  RETURNING *;
-  `,
-      [username, body, article_id]
-    )
-    .then(result => {
-      return result.rows;
     });
 };
