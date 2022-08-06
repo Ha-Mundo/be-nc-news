@@ -1,12 +1,15 @@
-const db = require("../db/connection");
 const testData = require("../db/data/test-data/index.js");
-const seed = require("../db/seeds/seed.js");
 const app = require("../app");
 const request = require("supertest");
+const db = require("../db/connection");
+const seed = require("../db/seeds/seed.js");
 require("jest-sorted");
 
+afterAll(() => {
+  if (db.end) return db.end();
+});
+
 beforeEach(() => seed(testData));
-afterAll(() => db.end());
 
 describe("GET /api/topics", () => {
   test("Returns an array of all the topics with description and slug properties", () => {
@@ -399,6 +402,33 @@ describe("Add a comment", () => {
       .expect(404)
       .then(({ body }) => {
         expect(body.msg).toBe("Not found");
+      });
+  });
+});
+
+describe("DELETE /api/comments/:comment_id", () => {
+  test("Responds with status: 204 removing the correct comment and returns no content", () => {
+    return request(app)
+      .delete("/api/comments/1")
+      .expect(204)
+      .then(({ body }) => {
+        expect(body).toEqual({});
+      });
+  });
+  test("Status: 400 for invalid comment_id", () => {
+    return request(app)
+      .delete("/api/comments/p34ch")
+      .expect(400)
+      .then(({ body }) => {
+        expect(body.msg).toBe("bad request");
+      });
+  });
+  test("Status 404 for valid but non existent comment_id", () => {
+    return request(app)
+      .delete("/api/comments/7777")
+      .expect(404)
+      .then(({ body }) => {
+        expect(body.msg).toBe("not found");
       });
   });
 });
