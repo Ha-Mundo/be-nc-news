@@ -11,6 +11,46 @@ afterAll(() => {
 
 beforeEach(() => seed(testData));
 
+describe("GET /api", () => {
+  test("Responds with all available endpoints", () => {
+    return request(app)
+      .get("/api")
+      .expect(200)
+      .then(({ body }) => {
+        expect(body["GET /api"]).toEqual(expect.any(Object));
+        expect(body["GET /api/topics"]).toEqual(expect.any(Object));
+        expect(body["GET /api/articles"]).toEqual(expect.any(Object));
+        expect(body["GET /api/articles/:article_id"]).toEqual(
+          expect.any(Object)
+        );
+        expect(body["PATCH /api/articles/:article_id"]).toEqual(
+          expect.any(Object)
+        );
+        expect(body["GET /api/users"]).toEqual(expect.any(Object));
+        expect(body["GET /api/articles/:article_id/comments"]).toEqual(
+          expect.any(Object)
+        );
+        expect(body["POST /api/articles/:article_id/comments"]).toEqual(
+          expect.any(Object)
+        );
+        expect(body["DELETE /api/comments/:comment_id"]).toEqual(
+          expect.any(Object)
+        );
+      });
+  });
+});
+
+describe("GET /api/nonsense", () => {
+  test("Handles all bad URL entries", () => {
+    return request(app)
+      .get("/api/nonsense")
+      .expect(404)
+      .then(({ body }) => {
+        expect(body.msg).toBe("Path not found");
+      });
+  });
+});
+
 describe("GET /api/topics", () => {
   test("Returns an array of all the topics with description and slug properties", () => {
     return request(app)
