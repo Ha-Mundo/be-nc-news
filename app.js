@@ -18,12 +18,17 @@ const {
   removeComment,
 } = require("./controllers/comments.controllers");
 
+const { getEndPoints } = require("./controllers/apis");
+
 const {
   psqlErrors,
   customErrors,
   handle404,
   handleFiveHundreds,
 } = require("./errors/index.js");
+
+// API
+app.get("/api", getEndPoints);
 
 // Topics
 app.get("/api/topics", getTopics);
