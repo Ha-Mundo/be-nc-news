@@ -10,7 +10,14 @@ exports.fetchAllArticles = (sort_by = "created_at", order = "DESC", topic) => {
     "comment_count",
     "created_at",
   ];
-  const allowedTopics = ["mitch", "cats", "paper"];
+  const allowedTopics = [
+    "coding",
+    "football",
+    "cooking",
+    "mitch",
+    "cats",
+    "paper",
+  ];
   const allowedOrder = ["ASC", "DESC"];
 
   if (!allowedOrder.includes(order) || !allowedSortBY.includes(sort_by)) {
