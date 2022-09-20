@@ -110,7 +110,7 @@ npm test app.test
 
 To stop the script, click anywhere in your terminal and press `CTRL+C` (for Windows and Mac).
 
-## Step 6 - CRUD Requests
+## Step 6 - Make CRUD Requests
 
 To make requests, open your preferred API client and make the requests there.
 
