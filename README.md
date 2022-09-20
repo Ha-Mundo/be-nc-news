@@ -1,10 +1,10 @@
 # Northcoders News API
 
-## Introduction
+### Introduction
 
 The purpose of this API is to programmatically access application data, with the intention of providing this information to inform front end development. This API project mimicks the building of a real world backend service, and the created database is stored and managed using PSQL.
 
-## API
+### API
 
 You may access the API here: **https://nc-news-22.herokuapp.com/**
 
