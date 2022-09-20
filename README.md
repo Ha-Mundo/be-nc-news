@@ -1,12 +1,124 @@
-## Step 1 - Setting up your project
+# Northcoders News API
 
-You will need to create two .env files for your project: .env.test and .env.development. Into each, add PGDATABASE=<database_name_here>, with the correct database name for that environment (see /db/setup.sql for the database names). Double check that these .env files are .gitignored.
+## Introduction
 
-You have also been provided with a db folder with some data, a setup.sql file and a seeds folder. You should also take a minute to familiarise yourself with the npm scripts you have been provided.
+The purpose of this API is to programmatically access application data, with the intention of providing this information to inform front end development. This API project mimicks the building of a real world backend service, and the created database is stored and managed using PSQL.
 
-The job of index.js in each the data folders is to export out all the data from that folder, currently stored in separate files. This is so that, when you need access to the data elsewhere, you can write one convenient require statement - to the index file, rather than having to require each file individually. Think of it like a index of a book - a place to refer to! Make sure the index file exports an object with values of the data from that folder with the keys:
+## API
 
-- topicData
-- articleData
-- userData
-- commentData
+You may access the API here: **https://nc-news-22.herokuapp.com/**
+
+### Endpoints
+
+```http
+GET /api
+
+GET /api/topics
+
+GET /api/articles
+
+GET /api/articles/:article_id
+
+PATCH /api/articles/:article_id
+
+GET /api/users
+
+GET /api/articles/:article_id/comments
+
+POST /api/articles/:article_id/comments
+
+DELETE /api/comments/:comment_id
+```
+
+### Requirements
+
+- Node minimum v12, recommended v14, current v16.14.2
+- PostgreSQL v14.1
+- Any API client, recommended: [Insomnia](https://insomnia.rest/download)
+
+## Step 1 - Clone the forked repository
+
+On the command line, navigate to the folder you want this repository to be store and enter the code below:
+
+```
+git clone https://github.com/Ha-Mundo/be-nc-news.git
+```
+
+## Step 2 - Install dependencies
+
+Once you have created a local copy of this repository, you will need to install the required dependencies with the following commands:
+
+```
+npm install -D jest
+npm install -D jest-sorted
+npm install -D supertest
+npm install pg
+npm install pg-format
+npm install express
+npm install dotenv
+npm install nodemon
+```
+
+Or install all the required dependencies with the single command:
+
+```
+npm install
+```
+
+## Step 3 - Create Environment Variables Files
+
+In order to connect to different PostgreSQL databases, you will need to create two environment variable files in the root folder. Dotenv will be using these .env files to connect you to the right database.
+
+```
+.env.test
+.env.development
+```
+
+You will find an `.env-example` file in this repo, which contains the format you want to insert into these two .env files.
+Make sure your .env files contain their respective database names and double check that these .env files are .gitignored.
+
+## Step 4 - Set up and seed databases
+
+Database seeding is the initial process of populating a database with data. This data can be dummy data for testing or real one.
+
+Before all that, we need to set up(create) the required databases first.
+
+```
+npm run setup-dbs
+```
+
+Then, we insert data in the database(seeding)
+
+```
+npm run seed
+```
+
+To instructs a local port to start listening for requests
+
+```
+npm run start
+```
+
+## Step 5 - Run Test
+
+These tests are designed to ensure endpoints and errors are working as they should.
+The API test files are already set in the test environment so you can run your test from the `__test__` folder.
+
+```
+npm test app.test
+```
+
+To stop the script, click anywhere in your terminal and press `CTRL+C` (for Windows and Mac).
+
+## Step 6 - CRUD Requests
+
+To make requests, open your preferred API client and make the requests there.
+
+- GET requests for users, topics, articles and their comments
+- GET requests for articles by an identifier
+- PATCH requests to add or remove votes
+- POST new comments
+- DELETE comments
+- Articles can be filtered by topic and sorted in specified orders
+
+Please refer to **https://nc-news-22.herokuapp.com/** API for the request methods and paths available.
