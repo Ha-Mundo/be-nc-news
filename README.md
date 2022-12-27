@@ -6,7 +6,7 @@ The purpose of this API is to programmatically access application data, with the
 
 ### API
 
-You may access the API here: **https://nc-news-22.herokuapp.com/**
+You may access the API here: **https://be-nc-news.up.railway.app/api**
 
 ### Endpoints
 
@@ -121,4 +121,4 @@ To make requests, open your preferred API client and make the requests there.
 - DELETE comments
 - Articles can be filtered by topic and sorted in specified orders
 
-Please refer to **https://nc-news-22.herokuapp.com/** API for the request methods and paths available.
+Please refer to **https://be-nc-news.up.railway.app/api** API for the request methods and paths available.
