@@ -6,9 +6,9 @@ The purpose of this API is to programmatically access application data, with the
 
 ### API
 
-#### You may access the API here: **https://be-nc-news-hiai.onrender.com/api**
+You may access the API here: **https://be-nc-news-hiai.onrender.com/api**
 
-Please allow a couple of minutes for the app to load due to Render's free tier startup time
+*Please allow a couple of minutes for the app to load due to Render's free tier startup time*
 
 ### Endpoints
 
